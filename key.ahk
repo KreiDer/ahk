@@ -17,6 +17,23 @@
 
 #IfWinActive
 
+
+
+;===========================
+;====== Total Commander ====
+;===========================
+#IfWinActive ahk_class TTOTAL_CMD
+	^SC017::Send {Up}
+	^SC025::Send {Down}
+	!1::Send !{f1}
+	!2::Send !{f2}
+	!4::Send {f4}
+	!5::Send {f5}
+	!6::Send {f6}
+	!7::Send {f7}	
+	!8::Send {f8}
+#IfWinActive
+
 ;===========================
 ;======   Win Merge   ======
 ;===========================
