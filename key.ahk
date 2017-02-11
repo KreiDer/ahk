@@ -1,38 +1,44 @@
+;===========================
+;====== Global maping ======
+;===========================
+
+;====== Reload AHK ======
 ^!\::Reload
-~LWin Up::Return	  
-~RWin Up::Return
 
+^+SC024::Send #{Left}
+^+SC026::Send #{Right}
+^+SC017::Send #{Up}
+^+SC025::Send #{Down}
 
-
-
+;===========================
+;======  Emacs maping ======
+;===========================
 #IfWinActive ahk_class Emacs
-
-#c::Send #<
-#t::Send #>
-#h::Send #;
-#n::Send #:
-
-!+a::Send ^+1 
 
 #IfWinActive
 
+;===========================
+;======   Win Merge   ======
+;===========================
+#IfWinActive ahk_class WinMergeWindowClassW
+	^c::Send !{Up}
+	^t::Send !{Down}
+#IfWinActive
+
+;===========================
+;====  All except Emacs ====
+;===========================
 #IfWinNotActive ahk_class Emacs
 
-!a::Send ^+1
-
 global select
-
 select:=0
-
-  
-AppsKey & SC039:: 
-  
-if(select = 1){
-	select = 0
-}else{
-	select = 1
-} 
-
+;====== alt + t Selection ======
+!SC014:: 
+	if(select = 1){
+		select = 0
+	}else{
+		select = 1
+	} 
 Return
       
 AppsKey & t::
@@ -96,133 +102,157 @@ AppsKey & t::
     	 Send `%	 
 return
 
-#c::Send ^!+c
-#t::Send ^!+t
-#e::Send ^!+e
-#h::Send !{Left}
-#n::Send !{Right}
-
-!+c::
+;====== ctrl + 9 ======
+^SC00A::
 if(select)
 	Send +{PgUp}
 else 
 	Send {PgUp}
 Return
 
-^!+vk49::Send {PgUp}
-!c::
+;====== alt + c ======
+^!SC017::
+!SC017::
 if(select)
 	Send +{Up}
 else 
 	Send {Up}
 Return
 
-^!vk49::Send {Up}
-
-
-
-!+t::
-if(select)
-	Send +{PgDn}
-else 
-        Send {PgDn}
-Return
-
-^!+vk4B::Send {PgDn}
-!t::
+;====== alt + t ======
+^!SC025::
+!SC025::
 if(select)
 	Send +{Down}
 else 
 	Send {Down}
 Return
 
-^!vk4B::Send {Down}
+;====== ctrl + 0 ======
+^!SC00B::
+^SC00B::
+if(select)
+	Send +{PgDn}
+else 
+        Send {PgDn}
+Return
 
-!h::
+;====== alt + h ======
+^!SC024::
+!SC024::
 if(select)
      Send +{Left}
 else 
      Send {Left}
 Return
 
-^!vk4A::Send {Left}
-
-!n::
+;====== alt + n ======
+^!SC026::
+!SC026::
 if(select)
 	Send +{Right}
 else 
      Send {Right}	
 Return
 
-^!vk4C::Send {Right}
-
-!g::
+;====== alt + g ======
+^!SC016::
+!SC016::
 if(select)
 	Send ^+{Left}
 else 
         Send ^{Left}
 Return
 
-^!vk55::Send ^{Left}
-!r::
+;====== alt + r ======
+^!SC018::
+!SC018::
 if(select)
 	Send ^+{Right}
 else 
         Send ^{Right}
 Return
 
-^!vk4F::Send ^{Right}
+;====== alt + d ======
+^!SC023::
+!SC023::
+if(select)
+     Send +{Home}
+else 
+     Send {Home}
+Return
 
-!d::Send {Home}
-^!vk48::Send {Home}
-
-!+d::Send {End}
-^!+vk48::Send {End}
-
-!b::Send ^{Home}
-^!vk4E::Send ^{Home}
-
-!+b::Send ^{End}
-^!+vk4E::Send ^{End}
-
-^j::
-!j::Send ^c
-^!vk43::Send ^{SC017}
-
-
-^k::
-!k::Send ^v
-^!vk56::Send ^{SC034}
+;====== alt + s ======
+^!SC027::
+!SC027::
+if(select)
+     Send +{End}
+else 
+     Send {End}
+Return
 
 
-^;::
-!;::Send ^z
-^!vk5A::Send ^z
+;====== alt + b ======
+^!SC031::			
+!SC031::Send ^{Home}
 
-!+;::Send ^+z
-^!+vk5A::Send ^+z
+;====== alt + shift + b ======
+^!+SC031::
+!+SC031::Send ^{End}
 
-^q::
-!q::Send ^x
-^!vk58::Send ^x
+;====== ctrl + c ======
+!^SC02E::
+^SC02E::
+!SC02E::
+	Send ^{SC017}
+	select = 0
+Return
 
+;====== ctrl + v ======
+!^SC02F::
+^SC02F::
+!SC02F::Send ^{SC034}
+
+;====== ctrl + z ======
+^!SC02C::
+^SC02C::
+!SC02C::Send ^{SC035}
+
+;====== ctrl + shift + z ======
+^!+SC02C::
+!+SC02C::Send ^+{SC035}
+
+;====== ctrl + x ======
+^!SC02D::
+^SC02D::
+!SC02D::Send ^{SC030}
+
+;====== alt + Tab ======
 !Tab::Send #{Tab}
-!e::Send {Backspace}
-^!vk44::Send {Backspace}
 
-!u::Send {Del}
-^!vk46::Send {Del}
+;====== alt + e ======
+^!SC020::
+!SC020::Send {Backspace}
 
-!.::Send ^{Backspace}
-^!vk45::Send ^{Backspace}
+;====== alt + u ======
+^!SC021::
+!SC021::Send {Del}
 
-!p::Send ^{Del}
-^!vk52::Send ^{Del}
+;====== alt + . ======
+^!SC012::
+!SC012::Send ^{Backspace}
 
-!f::Send ^f
-!+f::Send ^+f
-^!vk59::Send ^f   
+;====== alt + p ======
+^!SC013::
+!SC013::Send ^{Del}
 
+;====== alt + f ======
+^!SC015::
+!SC015::Send ^{SC015}
+
+;====== ctrl + w  ======
+^!SC033::
+!SC033::Send !{f4}
 
 #IfWinNotActive
 
@@ -230,12 +260,25 @@ Return
 #IfWinActive ahk_class Chrome_WidgetWin_1
 
 ^,::Send ^w
-^g::Send !d
+^SC016::Send !d
 !y::Send ^t
-!+h::Send !{Left}
-!+n::Send !{Right}
-!+g::Send ^{PgUp}
-!+r::Send ^{PgDn}
+!+SC024::Send !{Left}
+!+SC026::Send !{Right}
+!+SC016::Send ^{PgUp}
+!+SC018::Send ^{PgDn}
 !i::Send !g
 #IfWinActive
 
+F13 & SC016::Send 7
+F13 & SC017::Send 8
+F13 & SC018::Send 9
+F13 & SC024::Send 4
+F13 & SC025::Send 5
+F13 & SC026::Send 6
+F13 & m::Send 1
+F13 & SC033::Send 2
+F13 & v::Send 3
+F13 & SC039::Send 0
+
+F13 & SC019::Send #l
+F13 & SC020::Send #d                 
